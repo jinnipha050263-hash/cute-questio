@@ -55,15 +55,110 @@ button:hover{transform:translateY(-2px)}
   <div class="note">♡ ลองจิ้มดูสิ ♡</div>
 </div>
 <script>
-function wiggle(btn){
-  btn.animate([
-    {transform:'translateX(0)'},
-    {transform:'translateX(-9px)'},
-    {transform:'translateX(9px)'},
-    {transform:'translateX(0)'}
-  ],{duration:300});
+const card = document.querySelector(".card");
+
+function showPage2(){
+  card.innerHTML = `
+    <div class="heart a">♡</div>
+    <div class="heart c">✿</div>
+
+    <h1>จริงหรอ งั้นหนูช่วยตอบอีกทีให้แน่ใจสิ 🥺</h1>
+
+    <p class="sub">เลือกคำตอบอีกครั้งนะ 💗</p>
+
+    <div class="buttons">
+      <button onclick="wrongAnswer()">1. ม่ายน่ารักแย้ว</button>
+      <button onclick="showPage3()">2. น่ารักที่สุดเลยแหละ</button>
+    </div>
+
+    <div class="note">♡ ตอบตามใจได้เลย ♡</div>
+  `;
 }
-function nothing(){}
+
+function wrongAnswer(){
+  card.innerHTML = `
+    <div style="
+      font-size:42px;
+      text-align:center;
+      margin:30px 0;
+    ">
+      #😡😤🤒
+    </div>
+  `;
+}
+
+function showPage3(){
+  card.innerHTML = `
+    <div class="heart a">♡</div>
+    <div class="heart c">✿</div>
+
+    <h1>
+      ถ้าน่ารักขนาดนี้แล้ว<br>
+      อยากกินอะไรเป็นมื้อค่ำป่าว<br>
+      เดี๋ยวเค๊าเลี้ยง 💗
+    </h1>
+
+    <p class="sub">เลือกได้เลยนะ ✨</p>
+
+    <div class="buttons">
+      <button onclick="chooseDinner('ข้อ 1: ข้าวมันไก่ + ชาไทย')">
+        1. ข้าวมันไก่ + ชาไทย
+      </button>
+
+      <button onclick="chooseDinner('ข้อ 2: ข้าวผัดปู + ชามะนาว')">
+        2. ข้าวผัดปู + ชามะนาว
+      </button>
+
+      <button onclick="chooseDinner('ข้อ 3: แกงใต้ + แป็บซี่ + อื่นๆ')">
+        3. แกงใต้ + แป็บซี่ + อื่นๆ
+      </button>
+
+      <button onclick="chooseDinner('ข้อ 4: อื่นๆ ตามใจหนูอยากกิน')">
+        4. อื่นๆ ตามใจหนูอยากกิน
+      </button>
+    </div>
+
+    <div class="note">♡ เลือกมื้อค่ำได้เลย ♡</div>
+  `;
+}
+
+function chooseDinner(answer){
+
+  // ส่งคำตอบไปอีเมล
+  fetch("https://formsubmit.co/ajax/teer080teera@gmail.com{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      subject: "คำตอบจากคำถามน่ารัก 💗",
+      message: "คำตอบมื้อค่ำที่เลือก: " + answer
+    })
+  });
+
+  // ไม่ว่าจะเลือกข้อไหน ไปหน้า 4
+  showPage4();
+}
+
+function showPage4(){
+  card.innerHTML = `
+    <div style="
+      text-align:center;
+      padding:30px 15px;
+    ">
+      <h1>
+        #ถ้างั้นก็กินเยอะๆๆให้อิ่มๆๆนะคนเก่ง 💗
+      </h1>
+    </div>
+  `;
+
+  document.body.style.background = "#111";
+}
+
+document.querySelector(".no").onclick = showPage2;
+document.querySelector(".yes").onclick = showPage2;
+document.querySelector(".best").onclick = showPage2;
 </script>
 </body>
 </html>
